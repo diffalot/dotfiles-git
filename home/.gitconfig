@@ -1,0 +1,9 @@
+[user]
+	email = alice@gigantic.computer
+	name = Alice Davis
+	signingkey = BC76F379DB7CE625
+[commit]
+	gpgsign = true
+[core]
+	excludesfile = /home/alice/.gitignore
+	editor = vim
