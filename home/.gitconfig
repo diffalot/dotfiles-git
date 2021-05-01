@@ -7,3 +7,5 @@
 [core]
 	excludesfile = /home/alice/.gitignore
 	editor = vim
+[init]
+	defaultBranch = main
