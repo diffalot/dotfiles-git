@@ -1,7 +1,35 @@
 [user]
 	email = alice@gigantic.computer
 	name = Alice Davis
+
 [core]
-	editor = vim
+	editor = nvim
+	excludesfile = /Users/alice/.gitignore
+	pager = delta
+
 [init]
 	defaultBranch = main
+
+[diff]
+	tool = vimdiff
+
+[difftool]
+	prompt = false
+
+[alias]
+	d = difftool
+
+[mergetool]
+	keepBackup = false
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	features = side-by-side line-numbers decorations
+	whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+	commit-decoration-style = bold yellow box ul
+	file-style = bold yellow ul
+	file-decoration-style = none
