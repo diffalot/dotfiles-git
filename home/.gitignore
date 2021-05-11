@@ -3,3 +3,4 @@ tags
 tags.*
 node_modules
 .gitignore
+.vim
