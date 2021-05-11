@@ -35,10 +35,10 @@
 
 [delta]
 	side-by-side = true
-	syntax-theme = gruvbox-light  # light
-	features = side-by-side line-numbers hoopoe # light
-	#syntax-theme = gruvbox-dark  # dark
-	#features = side-by-side line-numbers collared-trogon # dark
+	#syntax-theme = gruvbox-light  # light
+	#features = side-by-side line-numbers hoopoe # light
+	syntax-theme = gruvbox-dark  # dark
+	features = side-by-side line-numbers collared-trogon # dark
 	whitespace-error-style = 22 reverse
 
 [alias]
