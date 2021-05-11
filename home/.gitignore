@@ -1,4 +1,5 @@
 .scratch.md
 tags
+tags.*
 node_modules
 .gitignore
