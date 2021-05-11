@@ -1,14 +1,19 @@
 # here's the default:
 # https://github.com/jonas/tig/blob/master/tigrc
 
-#set main-view	= line-number:no,interval=5 id:no date:relative-compact author:abbreviated commit-title:yes,graph,refs,overflow=no:wrap-lines=yes
-#set wrap-lines = yes
-#set split-view-height = 80%
-#set tab-size = 2
-#set ignore-space = all
-#set ignore-case = smart-case
-#set mouse = yes
+set main-view = \
+  date:custom,format="%m/%d" \
+  author:full,maxwidth=16 \
+  id:yes  \
+  commit-title:yes,graph,refs,overflow=yes:wrap-lines=yes
+#date:relative-compact \
 
+set start-on-head = yes     # Start with cursor on HEAD commit
+set refresh-mode = periodic # Enum: manual, auto, after-command, periodic
+set refresh-interval = 3
+set tab-size = 2
+set ignore-space = all
+set ignore-case = smart-case
 
 # vi:syntax=vim
 

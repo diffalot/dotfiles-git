@@ -1,1 +1,4 @@
 .scratch.md
+tags
+node_modules
+.gitignore

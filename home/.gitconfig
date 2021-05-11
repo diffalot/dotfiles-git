@@ -11,25 +11,47 @@
 	defaultBranch = main
 
 [diff]
-	tool = vimdiff
+	colorMoved = default
+#
+#[difftool]
+#	prompt = false
+#
+#[merge]
+#	tool = vimdiff
+#	conflictstyle = diff3
+#
+#[mergetool]
+#	keepBackup# = false
+#	path = nvim
+#
+#[alias]
+#	d = difftool
 
-[difftool]
-	prompt = false
-
-[alias]
-	d = difftool
-
-[mergetool]
-	keepBackup = false
+[include]
+	path = $HOME~/.gitconfig-resources/themes.gitconfig
 
 [interactive]
 	diffFilter = delta --color-only
 
 [delta]
-	features = side-by-side line-numbers decorations
+	side-by-side = true
+	syntax-theme = gruvbox-light  # light
+	features = side-by-side line-numbers hoopoe # light
+	#syntax-theme = gruvbox-dark  # dark
+	#features = side-by-side line-numbers collared-trogon # dark
 	whitespace-error-style = 22 reverse
+	
 
 [delta "decorations"]
 	commit-decoration-style = bold yellow box ul
 	file-style = bold yellow ul
 	file-decoration-style = none
+
+[merge]
+	tool = nvim
+[mergetool]
+	keepBackup = false
+[mergetool "nvim"]
+	cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[commit]
+	template = /Users/alice/.gitconfig-resources/template.commit-msg.md
