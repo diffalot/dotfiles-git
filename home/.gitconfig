@@ -23,7 +23,7 @@
 [core]
 	editor = nvim
 	excludesfile = /Users/alice/.gitignore
-	pager = delta
+	pager = bat
 
 [init]
 	defaultBranch = main
