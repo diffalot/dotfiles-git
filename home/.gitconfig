@@ -2,6 +2,7 @@
 	email = alice@gigantic.computer
 	name = Alice Davis
 
+# todo(alice): Why doesn't delta wrap lines when showing diffs. I hate it
 # todo(alice): figure out a good way to handle all of these files that I'd like
 # to modify acording to time of day to allow dark mode and a nice time using
 # the computer in the sun
