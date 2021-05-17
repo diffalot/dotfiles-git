@@ -4,6 +4,7 @@
 set ignore-space = all
 set ignore-case = smart-case
 set tab-size = 2
+set horizontal-scroll = 5%
 
 # todo(alice) Fix the colors so the green highlight on the selection cursor
 # bar's green on white has high enough contrast to be readable with modern
