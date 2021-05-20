@@ -1,6 +1,16 @@
-.scratch.md
-tags
-tags.*
 node_modules
 .gitignore
+
+# these are my go to I keep anything here here temporarily
+.scratch.md
+
+# these are vim session management,  I should figure out better places to store
+# them if CtrlSpaces will let me.  (.vim can probably be deleted, because that
+# session plugin was hungry all the time, but I like the idea of a .vim folder
+# so it stays.)
+.cs_*
 .vim
+
+# These are from universal c-tags and the other one..
+tags
+tags.*
