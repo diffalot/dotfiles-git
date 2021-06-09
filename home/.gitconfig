@@ -13,8 +13,8 @@
 	side-by-side = false
 	line-numbers = true
 	width = variable
-	#syntax-theme = Sublime Snazzy # night theme
-	syntax-theme = OneHalfLight # day theme
+	syntax-theme = Sublime Snazzy # night theme
+	#syntax-theme = OneHalfLight # day theme
 # todo(alice): figure out where the syntax themes are stores and see if putting
 # a symlink in there that changes based on a cron job whould work for day and
 # night mode switching.  may have to come up with a small shell helper that

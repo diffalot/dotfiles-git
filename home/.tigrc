@@ -7,6 +7,11 @@ set tab-size = 2
 set horizontal-scroll = 5%
 set wrap-lines = yes
 
+set diff-view = line-number:display=false text:commit-title-overflow=true
+set diff-options = --pretty=short
+set vertical-split = false
+set truncation-delimiter  = ∞   # Character drawn for truncations, or "utf-8"
+
 # todo(alice) Fix the colors so the green highlight on the selection cursor
 # bar's green on white has high enough contrast to be readable with modern
 # themes
@@ -30,5 +35,8 @@ set commit-order = topo
 # havent' just screwed up royally
 set refresh-mode = periodic
 set refresh-interval = 1
+
+source ~/.gitconfig-resources/tig-theme.molokai.tigrc
+#source ~/.gitconfig-resources/tig-theme.gruvbox.tigrc
 
 # vi:syntax=vim
