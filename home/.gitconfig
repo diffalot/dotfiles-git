@@ -33,7 +33,7 @@
 [core]
 	editor = nvim
 	excludesfile = /Users/alice/.gitignore
-	pager = delta
+	pager = bat
 
 [diff]
 	colorMoved = zebra
