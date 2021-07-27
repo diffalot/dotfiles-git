@@ -1,14 +1,18 @@
 # here's the default:
 # https://github.com/jonas/tig/blob/master/tigrc
 
+#external sources come first for easier overriding without modifying them
+source ~/.gitconfig-resources/tig-theme.molokai.tigrc
+#source ~/.gitconfig-resources/tig-theme.gruvbox.tigrc
+
 set ignore-space = all
-set ignore-case = smart-case
-set tab-size = 2
+set ignore-case = yes
+set tab-size = 4
 set horizontal-scroll = 5%
 set wrap-lines = yes
 
-set diff-view = line-number:display=false text:commit-title-overflow=true
-set diff-options = --pretty=short
+set diff-view = line-number:display=true text:commit-title-overflow=true
+#set diff-options = --pretty=short
 set vertical-split = false
 set truncation-delimiter  = ∞   # Character drawn for truncations, or "utf-8"
 
@@ -29,14 +33,204 @@ set main-view = \
 # Pure linear time is trash, I said what I said
 # author-date is human readable
 # topo is best because it's how closely related the commits are
-set commit-order = topo 
+set commit-order = topo
 
 # I keep lowering the refresh rate because I want instant confirmation that I
 # havent' just screwed up royally
 set refresh-mode = periodic
 set refresh-interval = 1
 
-source ~/.gitconfig-resources/tig-theme.molokai.tigrc
-#source ~/.gitconfig-resources/tig-theme.gruvbox.tigrc
+# oh wow, check where I found the following setup, they rock
+# https://github.com/sttts/tigrc
+
+## settings
+#set commit-order = topo
+set diff-highlight = true
+#set main-view	= line-number:no,interval=5 id:yes date:custom,format="%y%m%d %H:%M" author:abbreviated commit-title:yes,graph=v1,refs,overflow=no
+#
+set main-options = --exclude=refs/stash #--exclude=refs/pr
+#
+## keys
+bind diff <Up> move-up
+bind diff <Down> move-down
+bind diff <Home> :?^@@
+bind diff <End> :/^@@
+bind diff . :toggle diff-context +1
+bind diff , :toggle diff-context -1
+#
+bind stage <Up> move-up
+bind stage <Down> move-down
+bind stage <Home> :?^@@
+bind stage <End> :/^@@
+bind stage s stage-split-chunk
+bind stage + stage-update-line	# Stage/unstage current line
+bind stage - stage-update-line	# Stage/unstage current line
+bind stage . :toggle diff-context +1
+bind stage , :toggle diff-context -1
+bind stage y status-update
+#bind stage n :/^@@
+bind stage a @git add %(file)
+#bind stage d next
+bind stage p !git add -p %(file)
+bind stage P !git add -p
+bind stage e !git add -e %(file)
+bind stage E !git add -e %(file)
+#
+bind status p !git add -p %(file)
+bind status P !git add -p
+bind status e @git add -e %(file)
+bind status U !git checkout -p %(file)
+#bind status + status-update
+#bind status - status-update
+bind status r status-update
+bind status R @git reset %(file)
+#bind status A @git add -u
+#bind status a status-update
+#
+#bind generic	<C-D>	move-page-down
+#bind generic	<C-U>	move-page-up
+bind generic	<PgUp> move-half-page-up
+bind generic	<PgDown> move-half-page-down
+bind generic	<Space>	move-half-page-down
+#
+#bind generic	<Ctrl-E> @gogland %(file):%(lineno)
+#bind generic	e	@subl %(file):%(lineno)
+bind generic	e	@nvim +%(lineno) %(file)
+#
+bind diff j previous
+bind diff k next
+#
+bind status <Ctrl-A> !?git commit --amend
+#
+bind generic G @fish -c "open 'https://'$(git remote -v | grep -Eo 'github.com[:/][^.]+' | head -1 | tr : / | cut -d' ' -f1)'/commit/%(commit)'"
+bind main G @fish -c "open 'https://'$(git remote -v | grep -Eo 'github.com[:/][^.]+' | head -1 | tr : / | cut -d' ' -f1)'/commit/%(commit)'"
+bind main T !fish -c 'TAG="%(prompt Enter new tag name: )"; git tag "${TAG}" %(commit) || { read -n 1 -p "Force [y/n]? " X; test "$X" = "y" && git tag "${TAG}" %(commit) -f; }'
+#bind main ! !tig-delete.sh "%(commit)"
+#bind main <Del> !tig-delete.sh "%(commit)"
+bind main R !?git rebase -i -n-onto HEAD mark "%(commit)"
+bind main B !bash -xc 'B="%(prompt Enter new branch name: )"; test -z "$B" && exit 1; git branch "$B" "%(commit)" || { read -n 1 -p "Exists already. Force [y/n]? " X; test "$X" != "y" && exit 1; git branch -D "$B" && git branch -f -vv "$B" "%(commit)"; }'
+bind main P ?git cherry-pick "%(commit)"
+bind main C !tig-checkout.sh "%(commit)"
+bind generic r refresh
+bind main L !bash -c "git reflog --pretty=raw | tig --pretty=raw"
+#
+## colors
+#color date			27	default
+#color cursor		22  green
+#color graph-commit	33	default
+#
+#color main-tag			red	default
+#color main-local-tag	magenta	default
+#color main-remote		cyan default
+#color main-ref			87 default
+#color main-head			226 default bold
+#color main-tracked		39 default
+#color diff-stat			33 default
+#
+#color "index "			cyan default
+#color "@@"				cyan default
+#color "commit "			black default
+#color "Refs: "			cyan default
+#color "Author: "		cyan default
+#color "AuthorDate: "	cyan default
+#color "Commit: "		cyan default
+#color "CommitDate: "	cyan default
+#
+## tig-rebase.sh: https://github.com/Nattfarinn/tig-rebase
+## Fixup with parent commit
+#bind main F !tig-rebase.sh fixup %(commit)
+#bind diff F !tig-rebase.sh fixup %(commit)
+#
+# Squash with parent commit
+bind main S !tig-rebase.sh squash %(commit)
+bind diff S !tig-rebase.sh squash %(commit)
+#
+## Move and fixup with parent commit
+#bind main <Ctrl-F> !tig-rebase.sh move-fixup %(commit)
+#bind diff <Ctrl-F> !tig-rebase.sh move-fixup %(commit)
+#
+## Move and squash with parent commit
+#bind main <Ctrl-S> !tig-rebase.sh move-squash %(commit)
+#bind diff <Ctrl-S> !tig-rebase.sh move-squash %(commit)
+#
+## This says drop, not squash? ...... Squash with parent commit
+#bind main D !tig-rebase.sh drop %(commit)
+#bind diff D !tig-rebase.sh drop %(commit)
+# Rebase to move commit up
+bind main K !tig-rebase.sh ascend %(commit)
+bind diff K !tig-rebase.sh ascend %(commit)
+
+# Rebase to move commit down
+bind main J !tig-rebase.sh descend %(commit)
+bind diff J !tig-rebase.sh descend %(commit)
+
+## Rebase to move a commit somewhere else
+#bind main m @git tag -f mark %(commit)
+#bind main M !tig-rebase.sh move %(commit)
+
+# Edit commit message
+bind main W !tig-rebase.sh reword %(commit)
+bind diff W !tig-rebase.sh reword %(commit)
+
+# Abort current rebase
+bind main X !tig-rebase.sh abort
+bind diff X !tig-rebase.sh abort
+
+# Fixup with parent commit
+bind main E !tig-rebase.sh edit %(commit)
+bind diff E !tig-rebase.sh edit %(commit)
+
+## Split commit
+#bind main L !tig-rebase.sh split %(commit)
+#bind diff L !tig-rebase.sh split %(commit)
+
+
+
+#copied from pre lua vim rc:
+
+
+#"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+#" git workflow
+#"   the catchup phase
+#"     fetch and graph
+#"       - get a review of where your code is in relation to wveryone els'
+#nNORemap <F7> :Git fetch --all <bar> :Flogsplit -all -date=short -sort=author<CR>
+#"     cherry pick - when theres only one really solid feature in the middle of sea of crufty commits, start a new branch and pull in only the best code
+#"     rebase --a good strategy for making your working branch merge cleanly into main
+#"     merge --ff-only a great way to catch ip mon ff merges should be avoided
+#"       if at all possible
+#"   the work phase
+#"     git status and logs
+#"nnoremap <F7>s :echo system("git status")<CR>  "make this compact or a popup
+#nnoremap <F7>l :Git log<CR>
+#nnoremap <F7>o :echo system("git log -1 --oneline --pretty=format:'%s'")<CR>
+#"     git diff
+#nnoremap <F7>q :Git diff<CR>
+#nnoremap <F7>d :Gvdiffsplit<CR>
+#nnoremap <F7>m :Gclog<CR>
+#"     commit a lot"
+#"       [trivial]({*topic}) {*note}
+#"         - should a small cleanup and if you can git blame this on a commit that hasnt been merged to main, squash it in there
+#"       [wip] {optional note and message}
+#"         - you're sure this is going to be a part of the feature, and you want a checkpoint even thou you plan on squashing this all together eventually
+#"       amend
+#"         - old wip in progress is gone this is the new wip
+#"         - works perfectly as a trivial cleanup to a commit you just mapleader
+#"       undo
+#"         - reset to right before the last commit when all the files had been staged but not yet committed.  leaving everything staged helps anything you edit off the staged filed will be shown in git status and git diffw
+#"       stash -p
+#"         - store small cleanups or experiments that aren't directly related to the feature you wanted.  store these separately and commit the lefovers as a single commit of cleanup before your geagure goed throufh
+#"         - if two unrelated changes wind up in the same hunk, try to split them or handle them as single commits with undo
+#"       view stash {#}
+#"         - review what you have in the stashes you've collected
+#"       pop stash {#}
+#"         - this is a great time to group related items into a single entity
+#"       interactive rebase {root branch or commit--defaults to main} {sort and collect iteration passthrough number}
+#"         - arrange small commits that contain nothing but all the code for one feature- it will help other people know what the code does ig they see all of it at oncr with nothing to distract them
+#"       atomic commit [{topic}]({subtopic|action}) summary of change as action
+#"         - it's like squashing a pr into master, except you're doing it manuallyand removing anuthing that was not strictly a part of your feature
+#"    push and pr you'll just want to use rebase and merges as necessary
+#"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 # vi:syntax=vim
